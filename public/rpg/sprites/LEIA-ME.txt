@@ -1,0 +1,18 @@
+COMO COLOCAR SEUS PRÓPRIOS DESENHOS NA MASMORRA
+===============================================
+
+1. Desenhe no Piskel (piskelapp.com, grátis, no navegador) ou no Aseprite.
+2. Tamanho: 16 x 16 pixels pros heróis e inimigos, 24 x 24 pro chefe.
+   (Pode ser 32 x 32 se quiser mais detalhe: o jogo aumenta sem borrar.)
+3. Fundo TRANSPARENTE e o personagem OLHANDO PRA DIREITA.
+   O jogo vira os inimigos pra esquerda sozinho.
+4. Exporte como PNG e salve NESTA pasta com um destes nomes:
+
+   Heróis:   guardiao.png  lamina.png  arcano.png  bardo.png
+   Inimigos: esqueleto.png  arqueiro.png  morcego.png  cultista.png  gargula.png
+   Chefe:    abade.png
+
+5. Recarregue a página (F5). Pronto: o jogo usa o seu desenho no lugar
+   do provisório. Não precisa reiniciar o servidor.
+
+Os provisórios ficam no arquivo public/rpg-sprites.js (cada letra é um pixel).

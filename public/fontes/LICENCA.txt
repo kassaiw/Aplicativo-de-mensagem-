@@ -1,0 +1,11 @@
+As fontes desta pasta são livres e vêm com a licença SIL Open Font License 1.1:
+
+  Bricolage Grotesque — Copyright 2022 The Bricolage Grotesque Project Authors
+                        (https://github.com/ateliertriay/bricolage)
+  Figtree             — Copyright 2022 The Figtree Project Authors
+                        (https://github.com/erikdkennedy/figtree)
+
+Texto completo da licença: https://openfontlicense.org/open-font-license-official-text/
+
+Resumo: pode usar, estudar, modificar e redistribuir as fontes (inclusive junto com
+programas), desde que a licença vá junto e as fontes não sejam vendidas sozinhas.

@@ -1,0 +1,19 @@
+{
+  "nomeDoServidor": "Resenha",
+  "senha": "",
+  "senhaAdmin": "",
+  "porta": 3000,
+  "linkParaAmigos": true,
+  "abrirNavegador": true,
+  "giphyChave": "",
+  "gifClassificacao": "",
+  "turnCloudflare": {
+    "idDaChave": "",
+    "token": ""
+  },
+  "turn": {
+    "url": "",
+    "usuario": "",
+    "senha": ""
+  }
+}

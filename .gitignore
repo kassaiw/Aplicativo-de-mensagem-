@@ -1,0 +1,12 @@
+# Coisas que NÃO vão pro GitHub
+# Suas configurações (senhas, código de admin, chaves do GIPHY e do TURN)
+config.json
+# Histórico do chat, imagens, fotos de perfil, banidos e dados baixados
+dados/
+# Programas baixados
+cloudflared
+cloudflared.exe
+node_modules/
+*.log
+.DS_Store
+Thumbs.db

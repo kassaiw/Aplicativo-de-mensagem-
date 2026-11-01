@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Resenha</title>
+  <meta name="theme-color" content="#0c0f1c">
+  <!-- Fontes guardadas no próprio app (pasta public/fontes): Bricolage Grotesque nos títulos e Figtree no texto -->
+  <link rel="stylesheet" href="/fontes/fontes.css">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" href="/icone.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/icone-192.png">
+  <link rel="stylesheet" href="/style.css">
+  <script src="/app.js" defer></script>
+  <script src="/jogos.js" defer></script>
+  <script src="/rpg-sprites.js" defer></script>
+  <script src="/rpg.js" defer></script>
+  <script src="/animes.js" defer></script>
+  <script src="/construir.js" defer></script>
+  <script src="/cinema.js" defer></script>
+</head>
+<body>
+
+  <!-- ===================== TELA DE ENTRADA ===================== -->
+  <div id="telaEntrada" class="entrada">
+    <form id="formEntrada" class="cartao-entrada" autocomplete="off">
+      <div class="logo-entrada" id="logoEntrada">R</div>
+      <h1 id="tituloEntrada">Resenha</h1>
+      <p class="sub">Chama a galera, abre a câmera e compartilha a tela.</p>
+
+      <label class="campo">
+        <span>Seu nome</span>
+        <input id="campoNome" maxlength="24" required placeholder="Como te chamam?" autocomplete="nickname">
+      </label>
+
+      <div class="campo">
+        <span>Sua cor</span>
+        <div class="cores" id="coresEntrada"></div>
+      </div>
+
+      <label class="campo" id="rotuloSenha" hidden>
+        <span>Senha do servidor</span>
+        <input id="campoSenha" type="password" placeholder="Pergunte pra quem te convidou">
+      </label>
+
+      <p id="erroEntrada" class="erro" role="alert"></p>
+      <button class="btn primario grande" id="btnEntrar" type="submit">Entrar</button>
+    </form>
+  </div>
+
+  <!-- ===================== APP ===================== -->
+  <div id="app" class="app esconder-membros" hidden>
+
+    <!-- Barra lateral: canais -->
+    <aside class="barra" id="barra">
+      <header class="barra-topo">
+        <strong class="marca" id="nomeServidor">Resenha</strong>
+        <button class="btn-icone" id="btnConvidar" title="Convidar amigos" data-i="convidar"></button>
+      </header>
+
+      <div class="canais">
+        <button class="canal ativo" id="canalTexto"><span data-i="chat"></span>Chat<span class="contador" id="contadorTexto" hidden></span></button>
+
+        <button class="canal" id="canalVoz"><span data-i="volume"></span>Call</button>
+        <ul id="listaVoz" class="lista-voz"></ul>
+
+        <div class="separador-menu"></div>
+        <button class="canal" id="canalCinema"><span data-i="tv"></span>Cinema<span class="ao-vivo" id="badgeCinema" hidden>AO VIVO</span></button>
+        <div class="jogo-atual" id="cinemaAtual" hidden></div>
+
+        <button class="canal" id="canalJogos"><span data-i="controle"></span>Jogos<span class="ao-vivo" id="badgeJogo" hidden>AO VIVO</span></button>
+        <button class="canal" id="canalAnimes"><span data-i="estrela"></span>Animes<span class="ao-vivo" id="badgeAnimes" hidden>AO VIVO</span></button>
+        <div class="jogo-atual" id="jogoAtual" hidden></div>
+      </div>
+
+      <div id="painelConectado" class="painel-conectado" hidden>
+        <div class="status-voz">
+          <strong id="textoStatusVoz">Voz conectada</strong>
+          <span>Call</span>
+        </div>
+        <button class="btn-icone" id="btnTelaMini" title="Compartilhar tela" data-i="tela"></button>
+        <button class="btn-icone perigo" id="btnSairMini" title="Sair da chamada" data-i="desligar"></button>
+      </div>
+
+      <div class="painel-usuario">
+        <div class="avatar" id="meuAvatar"></div>
+        <div class="quem">
+          <strong id="meuNome"></strong>
+          <span id="meuStatus">Online</span>
+        </div>
+        <button class="btn-icone" id="btnMic2" title="Mutar microfone (Ctrl+Shift+M)" data-i="mic"></button>
+        <button class="btn-icone" id="btnSurdo2" title="Desligar áudio (Ctrl+Shift+D)" data-i="fone"></button>
+        <button class="btn-icone" id="btnConfig" title="Configurações" data-i="config"></button>
+      </div>
+    </aside>
+
+    <!-- Área principal -->
+    <main id="principal" class="principal modo-texto">
+      <header class="topo">
+        <button class="btn-icone so-celular" id="btnMenu" title="Menu" data-i="menu"></button>
+        <span class="titulo-topo" id="tituloTopo"><span data-i="chat"></span>Chat</span>
+        <span class="espaco"></span>
+        <button class="btn-icone so-voz" id="btnChatLateral" title="Mostrar/esconder chat" data-i="chat"><span class="bolinha" id="bolinhaChat" hidden></span></button>
+        <button class="online-topo" id="btnMembros" title="Quem está online"><span class="rostos-topo" id="rostosTopo"></span><span id="contagemOnline">0 online</span></button>
+      </header>
+
+      <div id="avisoConexao" class="aviso-conexao" hidden>Conexão perdida. Reconectando…</div>
+
+      <div class="conteudo">
+        <!-- Palco da chamada -->
+        <section id="palco" class="palco" aria-label="Chamada">
+          <div id="foraDaVoz" class="fora-da-voz">
+            <div class="rostos" id="rostosNaSala"></div>
+            <h2 id="tituloForaDaVoz">Call da galera</h2>
+            <p id="textoForaDaVoz">Ninguém na sala ainda. Entra aí que a galera aparece!</p>
+            <button class="btn primario grande" id="btnEntrarVoz"><span data-i="telefone"></span>Entrar na chamada</button>
+            <p class="aviso-inseguro" id="avisoInseguro" hidden>
+              A chamada só funciona abrindo pelo <b>localhost</b> ou pelo <b>link https</b> dos amigos.
+            </p>
+          </div>
+
+          <div id="grade" class="grade" hidden></div>
+
+          <div id="controles" class="controles" hidden>
+            <button class="ctl" id="btnMic" title="Mutar microfone" data-i="mic"></button>
+            <button class="ctl" id="btnSurdo" title="Desligar áudio" data-i="fone"></button>
+            <button class="ctl" id="btnCam" title="Ligar câmera" data-i="cam-off"></button>
+            <button class="ctl" id="btnTela" title="Compartilhar tela" data-i="tela"></button>
+            <button class="ctl perigo" id="btnSair" title="Sair da chamada" data-i="desligar"></button>
+          </div>
+        </section>
+
+        <!-- Jogos -->
+        <section id="areaJogos" class="area-jogos" aria-label="Jogos"></section>
+
+        <!-- Cinema (assistir junto) -->
+        <section id="areaCinema" class="area-cinema" aria-label="Cinema">
+          <div class="barra-cinema">
+            <input id="linkCinema" placeholder="Cole um link do YouTube ou um link direto de vídeo (.mp4, .webm)" autocomplete="off">
+            <button class="btn primario" id="btnAssistirLink" type="button">Assistir agora</button>
+            <button class="btn secundario" id="btnFilaLink" type="button">+ Fila</button>
+            <button class="btn secundario" id="btnArquivoCinema" type="button" title="Cada um escolhe o mesmo arquivo no próprio PC">📁 Arquivo do PC</button>
+            <input type="file" id="arquivoCinema" accept="video/*,.mkv" hidden>
+          </div>
+          <div class="palco-cinema" id="palcoCinema">
+            <div class="vazio-cinema" id="vazioCinema">
+              <div class="emoji-cinema">🍿</div>
+              <h2>Cinema</h2>
+              <p>Cole um link do YouTube ou de um vídeo e todo mundo assiste junto, sincronizado. Play, pause e pular valem pra todos.</p>
+              <p class="dica">O vídeo toca no navegador de cada um, então não pesa na chamada. Dá pra continuar conversando na sala de voz!</p>
+            </div>
+            <div id="playerYoutube" hidden></div>
+            <video id="playerVideo" controls playsinline hidden></video>
+            <div class="pedir-arquivo" id="pedirArquivo" hidden></div>
+            <div class="liberar-som" id="liberarSom" hidden><button class="btn primario grande" type="button">▶ Clique pra entrar no cinema</button></div>
+          </div>
+          <div class="info-cinema" id="infoCinema" hidden>
+            <div class="titulo-cinema">
+              <strong id="tituloCinema"></strong>
+              <small id="subCinema"></small>
+            </div>
+            <div class="botoes-cinema">
+              <label class="btn secundario" id="rotuloLegenda" title="Legenda .srt ou .vtt (só pra você)">💬 Legenda<input type="file" id="arquivoLegenda" accept=".srt,.vtt" hidden></label>
+              <button class="btn secundario" id="btnSincronizar" type="button" title="Se ficou fora de sincronia">🔄 Sincronizar</button>
+              <button class="btn secundario" id="btnTravaCinema" type="button"></button>
+              <button class="btn secundario" id="btnProximoCinema" type="button">⏭ Próximo</button>
+              <button class="btn perigo-texto" id="btnFecharCinema" type="button">Fechar</button>
+            </div>
+          </div>
+          <div class="fila-cinema" id="filaCinema" hidden></div>
+        </section>
+
+        <!-- Chat de texto -->
+        <section id="chat" class="chat" aria-label="Chat">
+          <div id="mensagens" class="mensagens">
+            <div class="boas-vindas">
+              <h2>O chat da galera</h2>
+              <p>Tudo que vocês mandarem aqui fica salvo. Começa com um oi.</p>
+            </div>
+          </div>
+          <div id="digitando" class="digitando"></div>
+          <div id="anexo" class="anexo" hidden>
+            <img id="anexoPreview" alt="">
+            <span id="anexoNome"></span>
+            <button class="btn-spoiler" id="btnSpoilerAnexo" type="button" title="Esconder a imagem até a pessoa clicar">Spoiler</button>
+            <button class="btn-icone" id="btnTirarAnexo" title="Remover imagem" data-i="fechar"></button>
+          </div>
+          <form id="formMsg" class="compor">
+            <button type="button" class="btn-icone" id="btnAnexar" title="Mandar imagem" data-i="mais"></button>
+            <input type="file" id="arquivoImagem" accept="image/png,image/jpeg,image/gif,image/webp" hidden>
+            <textarea id="campoMsg" rows="1" maxlength="2000" placeholder="Mensagem pra galera"></textarea>
+            <button type="button" class="btn-gif" id="btnGif" title="Mandar GIF">GIF</button>
+            <button type="submit" class="btn-icone" id="btnEnviar" title="Enviar" data-i="enviar"></button>
+          </form>
+
+          <!-- Seletor de GIFs -->
+          <div id="painelGif" class="painel-gif" hidden>
+            <div class="gif-topo">
+              <input id="buscaGif" placeholder="Pesquisar GIFs" autocomplete="off" maxlength="50">
+              <div class="abas-gif">
+                <button type="button" data-aba="alta" class="ativo">Em alta</button>
+                <button type="button" data-aba="favoritos">★ Favoritos</button>
+                <button type="button" class="btn-spoiler" id="btnSpoilerGif" title="O GIF vai escondido até a pessoa clicar">Spoiler</button>
+              </div>
+            </div>
+            <div id="gradeGif" class="grade-gif"></div>
+            <div class="gif-rodape">Powered by GIPHY</div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- Membros online -->
+    <aside class="membros" id="membros">
+      <div class="titulo-membros" id="tituloMembros">Ninguém online</div>
+      <ul id="listaMembros"></ul>
+    </aside>
+
+    <div class="veu" id="veu"></div>
+  </div>
+
+  <!-- ===================== CONFIGURAÇÕES ===================== -->
+  <div id="modalConfig" class="modal" hidden>
+    <div class="janela" role="dialog" aria-labelledby="tituloConfig">
+      <header class="janela-topo">
+        <h2 id="tituloConfig">Configurações</h2>
+        <button class="btn-icone" data-fechar data-i="fechar" title="Fechar"></button>
+      </header>
+
+      <h3>Perfil</h3>
+      <div class="editor-avatar">
+        <div class="avatar" id="cfgAvatar"></div>
+        <div class="botoes-avatar">
+          <button class="btn secundario" id="btnTrocarFoto" type="button">Trocar foto</button>
+          <button class="btn perigo-texto" id="btnTirarFoto" type="button">Remover</button>
+          <p class="dica">PNG, JPG, WEBP ou GIF (fica animado!) até 4 MB.</p>
+        </div>
+        <input type="file" id="arquivoAvatar" accept="image/png,image/jpeg,image/gif,image/webp" hidden>
+      </div>
+      <label class="campo"><span>Nome</span><input id="cfgNome" maxlength="24"></label>
+      <label class="campo"><span>Status</span><input id="cfgStatus" maxlength="60" placeholder="Ex.: jogando Minecraft 🎮"></label>
+      <label class="campo"><span>Sobre mim <small id="contadorBio">0/190</small></span><textarea id="cfgBio" maxlength="190" rows="3" placeholder="Conta um pouco sobre você"></textarea></label>
+      <div class="campo"><span>Cor do perfil</span><div class="cores" id="coresConfig"></div></div>
+      <button class="btn primario" id="btnSalvarPerfil">Salvar perfil</button>
+
+      <h3>Voz e vídeo</h3>
+      <label class="campo"><span>Microfone</span><select id="cfgMic"></select></label>
+      <div class="medidor" title="Fale algo pra testar"><div id="barraNivel"></div></div>
+      <label class="check"><input type="checkbox" id="cfgRuido"> Redução de ruído e eco</label>
+      <label class="campo" id="campoSaida"><span>Saída de áudio (fone/caixa)</span><select id="cfgSaida"></select></label>
+      <label class="campo"><span>Câmera</span><select id="cfgCam"></select></label>
+
+      <h3>Compartilhar tela</h3>
+      <label class="campo"><span>Qualidade</span>
+        <select id="cfgQualidade">
+          <option value="720p30">720p · 30 fps (internet mais fraca)</option>
+          <option value="1080p30">1080p · 30 fps (recomendado)</option>
+          <option value="1080p60">1080p · 60 fps (jogos, precisa de internet boa)</option>
+        </select>
+      </label>
+      <label class="campo"><span>Otimizar para</span>
+        <select id="cfgOtimizar">
+          <option value="movimento">Movimento — filmes, vídeos e jogos</option>
+          <option value="nitidez">Nitidez — texto, código, slides</option>
+        </select>
+      </label>
+      <p class="dica">Cada amigo recebe uma cópia direto do seu PC. Se travar pra eles, baixe a qualidade.</p>
+      <p class="dica"><b>Jogos:</b> use o jogo em <b>janela sem bordas</b> (ou janela maximizada) e compartilhe a <b>tela inteira</b>. Em tela cheia normal, o navegador não consegue capturar e a transmissão congela.</p>
+
+      <h3>Admin</h3>
+      <div id="adminFora">
+        <p class="dica">O código de admin aparece na janela preta do servidor (no PC de quem roda o Resenha).</p>
+        <div class="linha-link">
+          <input id="cfgCodigoAdmin" placeholder="Código de admin" autocomplete="off">
+          <button class="btn secundario" id="btnEntrarAdmin" type="button">Virar admin</button>
+        </div>
+      </div>
+      <div id="adminDentro" hidden>
+        <p>👑 Você é admin. Clique em alguém na lista da direita pra expulsar, banir, silenciar ou mutar.</p>
+        <div class="botoes-admin">
+          <button class="btn secundario" id="btnVerBanidos" type="button">Ver banidos</button>
+          <button class="btn perigo-texto" id="btnLimparChat" type="button">Limpar o chat</button>
+          <button class="btn secundario" id="btnSairAdmin" type="button">Deixar de ser admin</button>
+        </div>
+        <div id="listaBanidos" class="lista-banidos" hidden></div>
+      </div>
+
+      <h3>Atalhos</h3>
+      <p class="dica"><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>M</kbd> muta o microfone · <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>D</kbd> desliga o áudio · clique duplo num vídeo = tela cheia</p>
+
+      <div class="rodape-janela">
+        <button class="btn perigo-texto" id="btnSairServidor">Sair do servidor</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== CONVITE ===================== -->
+  <div id="modalConvite" class="modal" hidden>
+    <div class="janela pequena" role="dialog" aria-labelledby="tituloConvite">
+      <header class="janela-topo">
+        <h2 id="tituloConvite">Chamar a galera</h2>
+        <button class="btn-icone" data-fechar data-i="fechar" title="Fechar"></button>
+      </header>
+      <div id="conviteComLink">
+        <p>Manda esse link pros seus amigos. É só abrir no Chrome ou Edge:</p>
+        <div class="linha-link">
+          <input id="campoConvite" readonly>
+          <button class="btn primario" id="btnCopiarConvite">Copiar</button>
+        </div>
+        <p class="dica" id="dicaSenhaConvite" hidden>Lembre de passar a senha também.</p>
+        <p class="dica">O link muda toda vez que o servidor é reiniciado.</p>
+      </div>
+      <div id="conviteSemLink" hidden>
+        <p>Ainda não tem link público. No PC onde o servidor está rodando:</p>
+        <ol>
+          <li>Rode o <b>instalar-cloudflared.bat</b> (só uma vez).</li>
+          <li>Feche e abra o <b>iniciar.bat</b> de novo.</li>
+          <li>O link aparece na janela preta e aqui.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cartão de perfil (aparece ao clicar em alguém) -->
+  <div id="cartaoPerfil" class="cartao-perfil" hidden>
+    <div class="banner"></div>
+    <div class="avatar" id="perfilAvatar"></div>
+    <div class="perfil-corpo">
+      <h2 id="perfilNome"></h2>
+      <p id="perfilStatus" class="perfil-status"></p>
+      <p id="perfilVoz" class="perfil-voz"></p>
+      <div id="perfilSobre">
+        <h4>Sobre mim</h4>
+        <p id="perfilBio"></p>
+      </div>
+      <button class="btn secundario" id="btnEditarPerfil" hidden>Editar perfil</button>
+      <div id="acoesAdmin" class="acoes-admin" hidden>
+        <h4>👑 Admin</h4>
+        <div class="linha-admin">
+          <select id="adminMinutos">
+            <option value="5">5 min</option>
+            <option value="30">30 min</option>
+            <option value="60">1 hora</option>
+            <option value="1440">1 dia</option>
+          </select>
+          <button class="btn secundario" id="adminSilenciar" type="button">Silenciar no chat</button>
+        </div>
+        <div class="linha-admin">
+          <button class="btn secundario" id="adminMutar" type="button">Mutar na call</button>
+          <button class="btn secundario" id="adminTirarVoz" type="button">Tirar da call</button>
+        </div>
+        <div class="linha-admin">
+          <button class="btn perigo-texto" id="adminExpulsar" type="button">Expulsar</button>
+          <button class="btn perigo-texto" id="adminBanir" type="button">Banir</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Visualizador de imagem -->
+  <div id="visualizador" class="visualizador" hidden><img id="imagemGrande" alt=""></div>
+
+  <!-- Avisos rápidos -->
+  <div id="toasts" class="toasts" aria-live="polite"></div>
+
+  <!-- Áudios dos outros participantes (invisíveis) -->
+  <div id="audios" hidden></div>
+</body>
+</html>

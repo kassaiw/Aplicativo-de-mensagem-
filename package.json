@@ -1,0 +1,13 @@
+{
+  "name": "resenha",
+  "version": "1.0.0",
+  "description": "Servidor de chat, chamada de voz, câmera e compartilhamento de tela pra jogar e assistir com os amigos.",
+  "main": "server.js",
+  "private": true,
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
