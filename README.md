@@ -3,7 +3,7 @@
 Um lugar só da sua galera: chat, call com câmera e tela, cinema sincronizado e um monte de jogo pra jogar junto. Roda no seu próprio PC, sem conta, sem assinatura e sem ninguém no meio.
 
 <p align="center">
-  <a href="https://github.com/kassaiw/resenha/archive/refs/heads/main.zip"><b>⬇️ Baixar o Resenha (.zip)</b></a>
+  <a href="https://github.com/kassaiw/Aplicativo-de-mensagem-/archive/refs/heads/main.zip"><b>⬇️ Baixar o Resenha (.zip)</b></a>
 </p>
 
 ![O chat da galera](docs/imagens/chat.png)
@@ -28,7 +28,7 @@ Um lugar só da sua galera: chat, call com câmera e tela, cinema sincronizado e
 Só quem vai **hospedar** precisa baixar. Os amigos só abrem o link no navegador.
 
 1. Instale o [Node.js](https://nodejs.org) (versão LTS).
-2. [Baixe o Resenha](https://github.com/kassaiw/resenha/archive/refs/heads/main.zip) e descompacte numa pasta.
+2. [Baixe o Resenha](https://github.com/kassaiw/Aplicativo-de-mensagem-/archive/refs/heads/main.zip) e descompacte numa pasta.
 3. No Windows, rode `instalar-cloudflared.bat` uma vez (ele cria o link pros amigos entrarem de fora).
 4. Dê dois cliques em `iniciar.bat`. No Mac ou Linux: `sh iniciar-mac-linux.sh`.
 5. A janela mostra o **link dos amigos**. Manda no grupo e pronto.

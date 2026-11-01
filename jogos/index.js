@@ -29,7 +29,7 @@ const TIPOS = {
   leilao: require('./leilao'),
   masmorra: require('./rpg'),
   construir: require('./construir'),
-  ...quizAnime.TIPOS, // quiz-personagem, quiz-olho, quiz-cabelo, quiz-roupa, quiz-cenario, quiz-abertura, quiz-encerramento
+  ...quizAnime.TIPOS, // quiz-personagem e quiz-abertura
 };
 
 function criarGerente({ pastaDados, online, log }) {

@@ -2,12 +2,12 @@
 
 Um servidor só da galera, com:
 
-- **#geral** — chat de texto com histórico, links, imagens (cola com Ctrl+V ou arrasta) e **GIFs** (botão GIF, com busca e favoritos)
+- **Chat** — chat de texto com histórico, links, imagens (cola com Ctrl+V ou arrasta) e **GIFs** (botão GIF, com busca e favoritos)
 - **Perfil** — foto (pode ser GIF animado), status, "sobre mim" e cor; clique em alguém pra ver o cartão de perfil
 - **Spoiler** — imagens e GIFs escondidos até a pessoa clicar, e `||texto||` escondido no chat
 - **Admin** — expulsar, banir, silenciar no chat, mutar ou tirar da call, apagar mensagens e limpar o chat
 - **Cinema** — assistir YouTube, link de vídeo ou arquivo do PC todo mundo junto e sincronizado, sem compartilhar tela
-- **Sala de voz** — chamada com microfone, **câmera** e **compartilhamento de tela com som** (estilo watch party)
+- **Call** — chamada com microfone, **câmera** e **compartilhamento de tela com som** (estilo watch party)
 - Indicador de quem está falando, volume separado pra cada amigo, tela cheia, destaque na tela de quem está transmitindo
 - **Jogos** — Cinco Letras (estilo Termo), Conexões (estilo Conexo), Adivinhe o Campeão (estilo Loldle), Adivinhe o Jogo (estilo Gamedle), Palavras Secretas (espiões em times) e **Masmorra**, um RPG de turno em grupo (protótipo)
 - **Seção de Animes** — adivinhe o personagem pelo retrato e o anime pela abertura, mais Construir Personagem, Anidle, Draft e Leilão, com ranking da galera
@@ -54,7 +54,7 @@ Mande esse link. Ele também aparece dentro do app, no botão de **convidar** (b
 
 | Quero... | Faça isso |
 |---|---|
-| Entrar na chamada | Clique em **Sala de voz** na esquerda |
+| Entrar na chamada | Clique em **Call** na esquerda |
 | Mutar / desmutar | Botão do microfone, ou **Ctrl+Shift+M** |
 | Parar de ouvir todo mundo | Botão do fone, ou **Ctrl+Shift+D** |
 | Abrir a câmera | Botão da câmera (embaixo da chamada) |
@@ -69,7 +69,8 @@ Mande esse link. Ele também aparece dentro do app, no botão de **convidar** (b
 | Esconder um pedaço do texto | Escreva entre duas barras: `o final é \|\|ele morre\|\|` |
 | Apagar uma mensagem sua | Passe o mouse na mensagem e clique na lixeira 🗑️ |
 | Mudar foto, status, "sobre mim" | Configurações → **Perfil** → **Salvar perfil** |
-| Ver o perfil de alguém | Clique na pessoa na lista da direita, ou na foto/nome dela no chat |
+| Ver quem está online | Clique nas carinhas lá em cima, à direita |
+| Ver o perfil de alguém | Clique na pessoa na lista de quem está online, ou na foto/nome dela no chat |
 | Trocar microfone, câmera, qualidade da tela | Botão de **configurações** (os 3 risquinhos, lá embaixo) |
 
 ### 🎬 Assistir filme/vídeo junto (watch party)
@@ -94,7 +95,7 @@ O navegador **não consegue capturar jogo em tela cheia normal** (a transmissão
 **Notebook com duas placas de vídeo** e a transmissão fica **preta**: Configurações do Windows → Sistema → Tela → Elementos gráficos → adicione o Chrome e escolha **Alto desempenho** (a mesma placa do jogo).
 
 ### 🎮 Jogos
-Clique em **jogos** na barra da esquerda, escolha um e aperte **Começar**. Todo mundo no servidor vê o jogo e pode entrar. Dá pra jogar e ficar na chamada ao mesmo tempo, e o chat fica do lado (botão de balãozinho). Só roda **um jogo por vez**; pra trocar, clique em **Encerrar jogo**.
+Clique em **Jogos** na barra da esquerda, escolha um e aperte **Começar**. Todo mundo no servidor vê o jogo e pode entrar. Dá pra jogar e ficar na chamada ao mesmo tempo, e o chat fica do lado (botão de balãozinho). Só roda **um jogo por vez**; pra trocar, clique em **Encerrar jogo**.
 
 | Jogo | Como funciona |
 |---|---|
@@ -110,7 +111,7 @@ Clique em **jogos** na barra da esquerda, escolha um e aperte **Começar**. Todo
 
 ### 🎌 Seção de Animes
 
-Na barra da esquerda, clique em **animes**. De um lado ficam os jogos, do outro o **ranking da galera** (pontos, sequência de acertos, recorde e quem mais joga). Lá em cima você escolhe a **dificuldade** dos quizzes (Fácil, Médio ou Difícil).
+Na barra da esquerda, clique em **Animes**. De um lado ficam os jogos, do outro o **ranking da galera** (pontos, sequência de acertos, recorde e quem mais joga). Lá em cima você escolhe a **dificuldade** dos quizzes (Fácil, Médio ou Difícil).
 
 | Jogo | Como funciona |
 |---|---|
@@ -147,7 +148,7 @@ Nos quizzes são 10 rodadas, e **todo mundo chuta ao mesmo tempo**. Cada um tem 
 - Se cair a internet de alguém no meio do jogo, é só voltar: o lugar no jogo fica guardado.
 
 ### 🍿 Cinema (assistir junto)
-Clique em **cinema** na barra da esquerda. O vídeo toca **no navegador de cada um**, e o Resenha só sincroniza o play, o pause e o tempo. Então não pesa na chamada e dá pra continuar conversando na sala de voz.
+Clique em **Cinema** na barra da esquerda. O vídeo toca **no navegador de cada um**, e o Resenha só sincroniza o play, o pause e o tempo. Então não pesa na chamada e dá pra continuar conversando na call.
 
 - **YouTube:** cole o link do vídeo e clique em **Assistir agora**. Alguns donos de vídeo não deixam tocar fora do YouTube; aí aparece um aviso.
 - **Link direto de vídeo:** um link que termina em `.mp4` ou `.webm`.
@@ -165,7 +166,7 @@ Quando o servidor liga, a janela preta mostra o **Código de admin** (tipo `AB3K
 
 1. Vá em **Configurações** → **Admin**, digite o código e clique em **Virar admin**. Aparece uma 👑 do lado do seu nome.
 2. O navegador lembra: você continua admin mesmo fechando e abrindo de novo.
-3. **Clique em alguém** na lista da direita pra ver as ações:
+3. **Clique em alguém** na lista de quem está online (as carinhas lá em cima) pra ver as ações:
 
 | Ação | O que faz |
 |---|---|

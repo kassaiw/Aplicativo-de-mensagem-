@@ -91,7 +91,7 @@ function atualizarCinema(c, primeiraVez) {
   cine.estado = c;
   const chave = c.fonte?.chave || '';
   if (chave && chave !== antes?.fonte?.chave && !primeiraVez && !cine.assistindo && c.fonte.por !== estado.eu?.nome) {
-    toast(`🍿 ${c.fonte.por} colocou "${c.fonte.titulo}" no cinema. Clique em "cinema" pra assistir junto!`);
+    toast(`🍿 ${c.fonte.por} colocou "${c.fonte.titulo}" no cinema. Clique em "Cinema" pra assistir junto!`);
   }
   renderizarCanalCinema();
   if (cine.assistindo && chave !== cine.chave) carregarFonte(c.fonte);

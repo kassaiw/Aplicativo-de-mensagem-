@@ -206,7 +206,7 @@ function atualizarJogo(novo) {
     jogos.digitando = '';
     jogos.conexoes = { selecao: new Set(), ordem: [] };
     jogos.trocaDe = null;
-    if (estado.visao !== 'jogos' && novo.criador !== estado.eu?.nome) toast(`${novo.criador} começou ${novo.titulo}! Clique em "${ehDeAnime(novo.tipo) ? 'animes' : 'jogos'}" pra entrar.`);
+    if (estado.visao !== 'jogos' && novo.criador !== estado.eu?.nome) toast(`${novo.criador} começou ${novo.titulo}! Clique em "${ehDeAnime(novo.tipo) ? 'Animes' : 'Jogos'}" pra entrar.`);
   }
   renderizarCanalJogos();
   if (estado.visao === 'jogos') renderizarJogos();

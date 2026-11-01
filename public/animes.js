@@ -195,7 +195,7 @@ function audioDaRodada(m, inicio) {
     reserva.volume = a.volume;
     quiz.audio = reserva;
     quiz.filtro = null;
-    tocarAudio();
+    tocarMusicaQuiz();
   }, { once: true });
   // Web Audio: liga o áudio num filtro "passa-baixa" (corta o som agudo = abafado)
   try {
@@ -209,12 +209,12 @@ function audioDaRodada(m, inicio) {
   }
   quiz.audio = a;
   quiz.url = m.url;
-  tocarAudio();
+  tocarMusicaQuiz();
   return a;
 }
 
 // O navegador só deixa tocar som depois que a pessoa clicou em algo na página
-async function tocarAudio() {
+async function tocarMusicaQuiz() {
   const a = quiz.audio;
   if (!a) return;
   const estava = !!a.dataset.bloqueado;
@@ -261,7 +261,7 @@ function quadroQuiz(j) {
       const limpo = !j.eu || j.eu.acertou || j.eu.terminou;
       quadro.append(el('p', 'estado-som', limpo ? 'Som limpo' : ['Som bem abafado', 'Som meio abafado', 'Som quase limpo'][Math.min(j.eu.erros.length, 2)]));
     }
-    if (a.dataset.bloqueado) quadro.append(botao('🔊 Clique pra ouvir', 'primario grande liberar-som', tocarAudio));
+    if (a.dataset.bloqueado) quadro.append(botao('🔊 Clique pra ouvir', 'primario grande liberar-som', tocarMusicaQuiz));
     const vol = document.createElement('input');
     vol.type = 'range';
     vol.min = 0;
